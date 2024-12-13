@@ -1,0 +1,527 @@
+      let playlist = JSON.parse(localStorage.getItem('playlist')) || [
+    {
+        name: '2 dada',
+        src: 'https://www.dropbox.com/scl/fi/3i7r0o3oybs8uw5l12b51/2-Dada-feat.-Khushi-Baliyan-Manjeet-Mor-Amar-Karnawal.M4A?rlkey=l61vvthli5evefeaxe5haaams&st=rdr1n78f&dl=1'
+    },
+    {
+        name: '420 feat. Dev Chouhan & Fiza Choudhary',
+        src: 'https://www.dropbox.com/scl/fi/drj16n2pptq0wxnv75nzo/420-feat.-Dev-Chouhan-fiza-Choudhary.M4A?rlkey=q302pwaa3efckrzbkc1d1me9p&st=hdqylu2a&dl=1'
+    },
+    {
+        name: 'Aangli Hawa Me',
+        src: 'https://www.dropbox.com/scl/fi/d9b94zp44ou68qzcu1nqo/Aangli-Hawa-Me.M4A?rlkey=fpvmbqhvjyl8r2jtke320sl0x&st=c0qbnwzc&dl=1'
+    },
+    {
+        name: 'Ace',
+        src: 'https://www.dropbox.com/scl/fi/c2n0j2onqic3fefiylscx/Ace.M4A?rlkey=s4hmowjcinkn9pngohzegv6sg&st=vz0nq5hj&dl=1'
+    },
+    {
+        name: 'Affidavit',
+        src: 'https://www.dropbox.com/scl/fi/flp37a0rdq16lcz5nmxkk/Affidavit.M4A?rlkey=vnorbuwr05cd6eyk2f7d2evxg&st=mcj676v2&dl=1'
+    },
+    {
+        name: 'Aish Kare',
+        src: 'https://www.dropbox.com/scl/fi/gtblsevwujo39pmeiqexz/Aish-Kare.M4A?rlkey=2h36aj4wni65e8f2gq598j7kv&st=t2n6hyxg&dl=1'
+    },
+    {
+        name: 'Albadi Hood',
+        src: 'https://www.dropbox.com/scl/fi/s23njd15pc3x527o8lskj/Albadi-Hood.M4A?rlkey=gngpnhmfg4ottwm7h1sxalonm&st=ne9z8ph8&dl=1'
+    },
+    {
+        name: 'AKHBAAR',
+        src: 'https://www.dropbox.com/scl/fi/n4y6u7qwa43g3001v9fj6/AKHBAAR.M4A?rlkey=9e86hknest10n0wwnc20rr91y&st=gag1pxo4&dl=1'
+    },
+    {
+        name: 'ALL BLACK',
+        src: 'https://www.dropbox.com/scl/fi/nbqhgk864k0h6ojzuwq19/ALL-BLACK.M4A?rlkey=k4uwgqy66j6iq71sfc0r6zhce&st=pa5z8dl8&dl=1'
+    },
+    {
+        name: 'Amplifier',
+        src: 'https://www.dropbox.com/scl/fi/0oj1pquwva2ky2r1j0knb/Amplifier.M4A?rlkey=heal2av5areh446gjc6ev0qhq&st=r5rbyexj&dl=1'
+    },
+    {
+        name: 'Asla Ka Kirtan',
+        src: 'https://www.dropbox.com/scl/fi/4g83cdcq1gs3fu2v2l0zx/Asla-Ka-Kirtan.M4A?rlkey=2c2s94d3b01m7v5cxxgnh5430&st=6g0e8m4s&dl=1'
+    },
+    {
+        name: 'Baba Dhore Hathiyaar',
+        src: 'https://www.dropbox.com/scl/fi/wrzr5hmgk04eu3o5425nx/Baba-Dhore-Hathiyaar.M4A?rlkey=xq5kt58g8vedtxq06vwma9nss&st=muzlgbap&dl=1'
+    },
+    {
+        name: 'Badli Badli Laage',
+        src: 'https://www.dropbox.com/scl/fi/ge3v5itl8v28eaqcxo5k1/Badli-Badli-Laage.M4A?rlkey=77z9v9o5r24nt4nu71wo32yzf&st=b30ulxrs&dl=1'
+    },
+    {
+        name: 'Badmashi Meri Jaan',
+        src: 'https://www.dropbox.com/scl/fi/akaj3fxcfa5t0giz75hc5/Badmashi-Meri-Jaan.M4A?rlkey=zfenuzbf3zn53xozcukqs2v72&st=tk4zxg1i&dl=1'
+    },
+    {
+        name: 'Badnam Gaam',
+        src: 'https://www.dropbox.com/scl/fi/ck7l6m01f76nken7eixar/Badnam-Gaam.M4A?rlkey=i0875hynukzgb6k7jjl7jbl07&st=gnkrndhe&dl=1'
+    },
+    {
+        name: 'Badnam Gabru',
+        src: 'https://www.dropbox.com/scl/fi/auohbdts3jt4kv2iqn56n/Badnam-Gabru.M4A?rlkey=humo5bea6z78jpss94ij4fgle&st=csanf8r6&dl=1'
+    },
+    {
+        name: 'Badnam',
+        src: 'https://www.dropbox.com/scl/fi/s280qm2xmkct103jekih0/Badnam.M4A?rlkey=7lx5d36575pz27je3j4459zyg&st=crz16wq3&dl=1'
+    },{
+        name: 'Bandook',
+        src: 'https://www.dropbox.com/scl/fi/6sw11gpoia2xkpke6ojry/Bandook.M4A?rlkey=m7sb110to4vg1lb7ckhr1gqry&st=37thezho&dl=1'
+    },
+    {
+        name: 'Bde Bde Kand',
+        src: 'https://www.dropbox.com/scl/fi/lny7x8nl0ip3fge1pvfit/Bde-Bde-Kand.M4A?rlkey=hfdilsok73zgf76nv8dvi25b7&st=u0qapg46&dl=1'
+    },
+    {
+        name: 'Been Lo Fi',
+        src: 'https://www.dropbox.com/scl/fi/f8paic21elz2uwcig9d3n/Been-Lo-Fi.M4A?rlkey=9bz4mfcfpbi8vkklhkeg4sn4a&st=w5u68g9f&dl=1'
+    },
+    {
+        name: 'Bhagatt Aadmi',
+        src: 'https://www.dropbox.com/scl/fi/qqlzxo7j8znkf0gx9g1ls/Bhagatt-Aadmi.M4A?rlkey=oopu4dkjmjmmcs2iqrucui3yt&st=p8tgmytk&dl=1'
+    },
+    {
+        name: 'Bholenath feat. Kaka',
+        src: 'https://www.dropbox.com/scl/fi/8310gbyjybfrike58j3d1/Bholenath-feat.-Kaka.M4A?rlkey=29yxnae1zkr2ohj4ebb7ek33i&st=sar72xwe&dl=1'
+    },
+    {
+        name: 'Black Life',
+        src: 'https://www.dropbox.com/scl/fi/bzj1voh8tpdfgsoa9coan/Black-Life.M4A?rlkey=2ml41i4noipmf1qaogb6smy7p&st=57br87sf&dl=1'
+    },
+    {
+        name: 'Blender feat. Dev Chouhan & Pooja Saxena',
+        src: 'https://www.dropbox.com/scl/fi/wq60hys7kt8x1q2bu1a0w/Blender-feat.-Dev-Chouhan-Pooja-Saxena.M4A?rlkey=1yh8ll19vxyrn41mba8ap1w0s&st=je5wsryt&dl=1'
+    },
+    {
+        name: 'Calaboose',
+        src: 'https://www.dropbox.com/scl/fi/usidhnsb60josbmttlk2q/Calaboose.M4A?rlkey=w6inf1mt1bbsct3hrapbiwlog&st=5xa6mrm1&dl=1'
+    },
+    {
+        name: 'Chambal K Dakku',
+        src: 'https://www.dropbox.com/scl/fi/mowmgv4y2yed8a6ovk3ul/Chambal-K-Dakku.M4A?rlkey=w9idx74t3mhkwsw2t4hw4hbxi&st=bjizcjt3&dl=1'
+    },
+    {
+        name: 'Chamunda',
+        src: 'https://www.dropbox.com/scl/fi/mrqv65fsize41dr907ept/Chamunda.M4A?rlkey=0wlwh2z88fy2k3sijb80ebe6c&st=vlcuf6p9&dl=1'
+    },
+    {
+        name: 'Chandigarh Aali Re',
+        src: 'https://www.dropbox.com/scl/fi/0md1v4tt2lp0doqamu4z8/Chandigarh-Aali-Re.M4A?rlkey=r0ie9cgb8x6u0pyu2zdux42b2&st=uz0hg6pb&dl=1'
+    },
+    {
+        name: 'Cheques',
+        src: 'https://www.dropbox.com/scl/fi/nb9hp3x6u3tq34elu1yfs/Cheques.M4A?rlkey=yaoj0u8spmwgwarv08xilpbx1&st=3zvc1oct&dl=1'
+    },
+    {
+        name: 'Cheteh Balak',
+        src: 'https://www.dropbox.com/scl/fi/il8ccbxubl1r11bfsjhac/Cheteh-Balak.M4A?rlkey=zjzsvhsq8jlmyt12ylvl7uh4i&st=4acgh1jz&dl=1'
+    },
+    {
+        name: 'Choudher Jaat Ki',
+        src: 'https://www.dropbox.com/scl/fi/udkdd389mseho4k9wg11e/Choudher-Jaat-Ki.M4A?rlkey=d70vlkqwxa59ypyjx7i6biva8&st=b1xy87uh&dl=1'
+    },
+    {
+        name: 'Convoy',
+        src: 'https://www.dropbox.com/scl/fi/jn47lzhi0xfpq0ntpzgg6/Convoy.M4A?rlkey=3xz9brsyukbueay2v8393jsvc&st=mmfpyytj&dl=1'
+    },
+    {
+        name: 'Court Me Goli feat. Ankit Baliyan & Fiza Choudhary',
+        src: 'https://www.dropbox.com/scl/fi/cvc2vw2ag6909is16c9hu/Court-Me-Goli-feat.-Ankit-Baliyan-Fiza-Choudhary.M4A?rlkey=kbkv1534yhephoakxomoidd7o&st=76er7ftm&dl=1'
+    },
+    {
+        name: 'Current',
+        src: 'https://www.dropbox.com/scl/fi/bn6c6opij3acfsr7gf18h/Current.M4A?rlkey=46zu5wbfdt19jiqsjb28fzfo3&st=vgirvmmh&dl=1'
+    },
+    {
+        name: 'Dabya Ni Karde',
+        src: 'https://www.dropbox.com/scl/fi/hx4e9jbisehlpgzox2dve/Dabya-Ni-Karde.M4A?rlkey=gl114mkp5rnc72y5rka4jb3vl&st=uxfxv72g&dl=1'
+    },
+    {
+        name: 'Daku Slowed Reverb',
+        src: 'https://www.dropbox.com/scl/fi/jd3v2ci8oogdypdxk6e67/Daku-Slowed-Reverb.M4A?rlkey=z7o2ws671xht7i9452246g755&st=vuhf8t34&dl=1'
+    },
+    {
+        name: 'Dawood',
+        src: 'https://www.dropbox.com/scl/fi/ba2hl3oo90xnat8vm97wr/Dawood.M4A?rlkey=64y9jw83a5in64d356x0kg2oe&st=j6dc02z9&dl=1'
+    },
+    {
+        name: 'Death Route',
+        src: 'https://www.dropbox.com/scl/fi/5qms81zjxzrnxmtn4kf7w/Death-Route.M4A?rlkey=jhowcr22ymljnkwgutvfwm18z&st=ov5bnl66&dl=1'
+    },
+    {
+        name: 'Desi Desi Na Bolya Kar',
+        src: 'https://www.dropbox.com/scl/fi/pf9os8k5kn6qpxmcbytyl/Desi-Desi-Na-Bolya-Kar.M4A?rlkey=ousameefdwzauukrmdfzocv4b&st=ixshhgfx&dl=1'
+    },
+    {
+        name: 'Devil',
+        src: 'https://www.dropbox.com/scl/fi/cc4c20kqoqmp8gce6fkge/Devil.M4A?rlkey=2oxs7ht6m2djwgabp3u8n0tlb&st=5wlozqxn&dl=1'
+    },
+    {
+        name: 'Elevated',
+        src: 'https://www.dropbox.com/scl/fi/qhfc3j75w914nxhjbafqw/Elevated.M4A?rlkey=sxu4fp7o7plpn129hzs4xho2q&st=tfh3r8ic&dl=1'
+    },
+    {
+        name: 'Excuses',
+        src: 'https://www.dropbox.com/scl/fi/jfyznjc7a9b37tudp6ovo/Excuses.M4A?rlkey=a1u7lk361qrd9w3agliq2vnt7&st=lr97u3pp&dl=1'
+    },
+    {
+        name: 'Expert Jatt',
+        src: 'https://www.dropbox.com/scl/fi/u9ij0mz6lsed7iauwavtm/Expert-Jatt.M4A?rlkey=64bqlxa1vqkns39qyx7ta744n&st=jd6hmeto&dl=1'
+    },
+    {
+        name: 'Follow',
+        src: 'https://www.dropbox.com/scl/fi/weu2bboh12pf5dj9921ky/Follow.M4A?rlkey=bitq92tffiym1nb9l1ro8g63f&st=ih54fg8a&dl=1'
+    },
+    {
+        name: 'Fortuner',
+        src: 'https://www.dropbox.com/scl/fi/7tk9gnysevhtbnjemwm7k/Fortuner.M4A?rlkey=amg2vftf7otdjxksvzykj6q8a&st=t7jgszbr&dl=1'
+    },
+    {
+        name: 'Gaadi Desiyan Ki',
+        src: 'https://www.dropbox.com/scl/fi/sztq54b13jziprh4gofzc/Gaadi-Desiyan-Ki.M4A?rlkey=nqt8q6c69vbx4zyaaxewfg6yq&st=69ijh8kj&dl=1'
+    },
+    {
+        name: 'Gaadi Nuye Chalegi',
+        src: 'https://www.dropbox.com/scl/fi/hs061l2gtoc8bl0xrvgom/Gaadi-Nuye-Chalegi.M4A?rlkey=7d9vb9i3fo6f1tvkbtzmu82kt&st=7hp1sdrd&dl=1'
+    },
+    {
+        name: 'Gabbar Bhi Nachega feat. Nidhi Sharma',
+        src: 'https://www.dropbox.com/scl/fi/639lrbwhtsq0zvez784f6/Gabbar-Bhi-Nachega-feat.-Nidhi-Sharma.M4A?rlkey=rlua769pb6z44mordd3fmjk45&st=85nvtm05&dl=1'
+    },
+    {
+        name: 'Gall Khaas',
+        src: 'https://www.dropbox.com/scl/fi/woq96axrelzcu7bfj6flx/Gall-Khaas.M4A?rlkey=wew7ocpqdo0m274pcs47numvo&st=jlqvp8ip&dl=1'
+    },
+    {
+        name: 'Game',
+        src: 'https://www.dropbox.com/scl/fi/48pgswjlqici8zygpq49h/Game.M4A?rlkey=tq848xjl9lz06v177z3xu4ha4&st=968cmv94&dl=1'
+    },
+    {
+        name: 'Gangland',
+        src: 'https://www.dropbox.com/scl/fi/zam7o0o9g6t6xegk8auyi/Gangland.M4A?rlkey=cypkumjqm2hxwutu80b0gdd7n&st=tqod0l6m&dl=1'
+    },
+    {
+        name: 'Gani',
+        src: 'https://www.dropbox.com/scl/fi/q7xqciq41ygyltowka9l9/Gani.M4A?rlkey=ksrt4whr669azu312lg4xl71j&st=ih7vqjsk&dl=1'
+    },
+    {
+        name: 'Gentleman 2',
+        src: 'https://www.dropbox.com/scl/fi/yipbih023zbhc2qn4hvve/Gentleman-2.M4A?rlkey=3j04k7zxrrjjuxmzo6m1ycei8&st=x4on3gxx&dl=1'
+    },
+    {
+        name: 'Goli feat. Khushi Verma',
+        src: 'https://www.dropbox.com/scl/fi/lgzha7kab3tl4643o1cpj/Goli-feat.-Khushi-Verma.M4A?rlkey=uzm6w7bc45fygd5m4rgv5ojcb&st=l50cj4qi&dl=1'
+    },
+    {
+        name: 'Gunday Or Badmasa Ki feat. Biru Kataria Fiza Choudhary',
+        src: 'https://www.dropbox.com/scl/fi/vhhhk8ppok0w4b0izyjqv/Gunday-Or-Badmasa-Ki-feat.-Biru-Kataria-Fiza-Choudhary.M4A?rlkey=buu1iknn9tdtwpf8t5xln3umn&st=nwp7vody&dl=1'
+    },
+    {
+        name: 'Gunde Chacha Tau Ke',
+        src: 'https://www.dropbox.com/scl/fi/ajvj3un6c934o8m09df5a/Gunde-Chacha-Tau-Ke.M4A?rlkey=axouohxaz1p7zzn5meqq06un3&st=w618ub24&dl=1'
+    },
+    {
+        name: 'Haryana Aale',
+        src: 'https://www.dropbox.com/scl/fi/k53tlmaugwcuxcd2o8834/Haryana-Aale.M4A?rlkey=kr90o1vzwnr7sei7x0j4e64fs&st=j6u1vt65&dl=1'
+    },
+    {
+        name: 'Haryana Hood',
+        src: 'https://www.dropbox.com/scl/fi/70prxi8aa12l9lf2nm932/Haryana-Hood.M4A?rlkey=t4x4loh5lsd1f9k3zgm31wv94&st=lq1qh2ob&dl=1'
+    },
+    {
+        name: 'Haryane Ka Jaat',
+        src: 'https://www.dropbox.com/scl/fi/mrk4g56byrjwjs0acony2/Haryane-Ka-Jaat.M4A?rlkey=q0k9dlwwu0o3ieatzz5sts5oz&st=pm1darwu&dl=1'
+    },
+    {
+        name: 'Haryanvi',
+        src: 'https://www.dropbox.com/scl/fi/5o0fg01wx7caynup428pj/Haryanvi.M4A?rlkey=nmr45sm84rll28daio4gm5jpx&st=pr8vn67q&dl=1'
+    },
+    {
+        name: 'Hokka Chillam',
+        src: 'https://www.dropbox.com/scl/fi/v3kkeibmqx2n2btd4j9q7/Hokka-Chillam.M4A?rlkey=dmpdfc9a323v5sk1wnxbjwuwn&st=uk0m5j5l&dl=1'
+    },
+    {
+        name: 'Ikk Number feat. Jasmeen Akhtar',
+        src: 'https://www.dropbox.com/scl/fi/awqr1vzp0xen9ywnyotwa/Ikk-Number-feat.-Jasmeen-Akhtar.M4A?rlkey=4sweadxyon6hu8zh4ub6c7fvu&st=16c5acau&dl=1'
+    },
+    {
+        name: 'Illegal',
+        src: 'https://www.dropbox.com/scl/fi/fre2b1zpg51lkr2s1z58n/Illegal.M4A?rlkey=8bdr9203iwecn2qhkbkwuyl8y&st=tyirccyx&dl=1'
+    },
+    {
+        name: 'Ilzaam',
+        src: 'https://www.dropbox.com/scl/fi/vjlgp255b72y5dwfi5tpa/Ilzaam.M4A?rlkey=zy2s2f1iggxajnpogtrswlnfm&st=t5wpk3cb&dl=1'
+    },
+    {
+        name: 'Jaat Ni Honde',
+        src: 'https://www.dropbox.com/scl/fi/0udgluvkls6kmqy2z1efm/Jaat-Ni-Honde.M4A?rlkey=qwqv8ifp8fli53nkuhb74t8cm&st=ydrzc5wd&dl=1'
+    },
+    {
+        name: 'Jai Veeru',
+        src: 'https://www.dropbox.com/scl/fi/5ruo3rykw7qsursfhoyz0/Jai-Veeru.M4A?rlkey=ag5i8je1xi7stocixowp5a2wa&st=86i2swsw&dl=1'
+    },
+    {
+        name: 'Jail 2',
+        src: 'https://www.dropbox.com/scl/fi/2sxvi38olmezzt6y4lpqs/Jail-2.M4A?rlkey=p5zooekdxflw830xuwhl7u7ff&st=kkfer5b3&dl=1'
+    },
+    {
+        name: 'Jazbaati Bande',
+        src: 'https://www.dropbox.com/scl/fi/0j8crq0a88g7u39irgij5/Jazbaati-Bande.M4A?rlkey=n4iv2yldy5gqqs9joyycihtrj&st=38i65pei&dl=1'
+    },
+    {
+        name: 'Jhotte',
+        src: 'https://www.dropbox.com/scl/fi/7dhiixc6l79c9pkqnq0cp/Jhotte.M4A?rlkey=vu1al7reo9d05cyb06nhzo7wk&st=1b2cl8vu&dl=1'
+    },
+    {
+        name: 'Kaana Pe Baal',
+        src: 'https://www.dropbox.com/scl/fi/xswe05lq0ysjdh4kzyu5p/Kaana-Pe-Baal.M4A?rlkey=6duwuwih6gx3smh9o8h0tuyo6&st=ef7kt91v&dl=1'
+    },
+    {
+        name: 'Kala Badnam Ho Liya',
+        src: 'https://www.dropbox.com/scl/fi/ie36ff3mr4nc6rxzp4ftb/Kala-Badnam-Ho-Liya.M4A?rlkey=iaw2qvoceu91pfnolbkkmn7dv&st=m2fai5f4&dl=1'
+    },
+    {
+        name: 'Kale Kagaz Lofi Mix',
+        src: 'https://www.dropbox.com/scl/fi/jftjdm1jgqpqc23s3fufd/Kale-Kagaz-Lofi-Mix.M4A?rlkey=d0qokkgqlstkta143bc4aobhc&st=ql77mmhn&dl=1'
+    },
+    {
+        name: 'Khalnayak',
+        src: 'https://www.dropbox.com/scl/fi/0h9yyyx5zg3i8vjkheqi9/Khalnayak.M4A?rlkey=64q6ws2w7y6lourl41qd612g9&st=76c3edu1&dl=1'
+    },
+    {
+        name: 'King Shit',
+        src: 'https://www.dropbox.com/scl/fi/jwxy94dochc2p27qs565h/King-Shit.M4A?rlkey=bz6ybcmjmq3j62xrj6cpe238m&st=3zgx5uii&dl=1'
+    },
+    {
+        name: 'Kisaan Anthem',
+        src: 'https://www.dropbox.com/scl/fi/7fxoz3wsgscav8vtf86f7/Kisaan-Anthem.M4A?rlkey=ihgd1u2qrpdjaktk2usidelz9&st=gjrduqvy&dl=1'
+    },
+    {
+        name: 'Knife Brows',
+        src: 'https://www.dropbox.com/scl/fi/nxd17hi4zm2fb361agrwr/Knife-Brows.M4A?rlkey=gwxo1eulltjo31kms2b7m5qlg&st=76vyk0v6&dl=1'
+    },
+    {
+        name: 'Laad Piya Ke',
+        src: 'https://www.dropbox.com/scl/fi/p3asy5yrzti45qnhit2fy/Laad-Piya-Ke.M4A?rlkey=v71taj89wuvliirgv44scw610&st=ub42259t&dl=1'
+    },
+    {
+        name: 'Lafander feat. Sweta Chauhan',
+        src: 'https://www.dropbox.com/scl/fi/kk0xmbf7swq0oz9vcgc3u/Lafander-feat.-Sweta-Chauhan.M4A?rlkey=nifwyln5wnld9h9qysqhhkxxd&st=jjktbj06&dl=1'
+    },
+    {
+        name: 'Lal Dabbi',
+        src: 'https://www.dropbox.com/scl/fi/qg1trrezs521aj3yul9pk/Lal-Dabbi.M4A?rlkey=snhk49mce8luwkkrhpp21byv5&st=qztysoyn&dl=1'
+    },
+    {
+        name: 'Last Peg',
+        src: 'https://www.dropbox.com/scl/fi/qvwlaifmgp8sc6uehv5fe/Last-Peg.M4A?rlkey=axpiw5suznnogul8zuht47k1f&st=1ga4igyb&dl=1'
+    },
+    {
+        name: 'Limits',
+        src: 'https://www.dropbox.com/scl/fi/97cqx2g3ys3zbm4j0epmw/Limits.M4A?rlkey=nztx1nvms8pfccgdie1trjcr6&st=uai29ut2&dl=1'
+    },
+    {
+        name: 'Loot Liya',
+        src: 'https://www.dropbox.com/scl/fi/otj1vg7rknqjmla7vp6ka/Loot-Liya.M4A?rlkey=xf1k9kzypx5i5qeba9lrv98y0&st=wkpzrrq6&dl=1'
+    },
+    {
+        name: 'Mote Peg',
+        src: 'https://www.dropbox.com/scl/fi/nn7r04tb7z9mdz52cvcqk/Mote-Peg.M4A?rlkey=y3cuxeo2jjdtckd5l1pmkl79m&st=qnegzaa6&dl=1'
+    },
+    {
+        name: 'Mulakaat',
+        src: 'https://www.dropbox.com/scl/fi/svnqss1asph8vb1w5t4bx/Mulakaat.M4A?rlkey=knyzdzhsxoyjnb62ppsscan3d&st=b4sea50v&dl=1'
+    },
+    {
+        name: 'Nazar',
+        src: 'https://www.dropbox.com/scl/fi/pwicp5svffnaexa60g3mo/Nazar.M4A?rlkey=w1ywp883o45rdlyo6vq27viuz&st=w7w0xqvs&dl=1'
+    },
+    {
+        name: 'No Love',
+        src: 'https://www.dropbox.com/scl/fi/hp11mx50wcehr966e0wrh/No-Love.M4A?rlkey=kbueqm6dz45wigb0nvmq4qqkj&st=t57dozl3&dl=1'
+    },
+    {
+        name: 'Oh Banda 2 feat. Savvy Nagra',
+        src: 'https://www.dropbox.com/scl/fi/hfn19oyvyuz2kcpoufmju/Oh-Banda-2-feat.-Savvy-Nagra.M4A?rlkey=itw1lp5uzrp7ij0tkxtcesu6g&st=vfwmkbbr&dl=1'
+    },
+    {
+        name: 'Over Confidence',
+        src: 'https://www.dropbox.com/scl/fi/xn4kmsy4nl612mral50vi/Over-Confidence.M4A?rlkey=vjmlcimy3vk3div9646na0hr2&st=xq5yn8al&dl=1'
+    },
+    {
+        name: 'Parole',
+        src: 'https://www.dropbox.com/scl/fi/x1aqtars376xjel51ly36/Parole.M4A?rlkey=67a92o1e7t7sc41y06rk49bup&st=rbskiss7&dl=1'
+    },
+    {
+        name: 'Peshi',
+        src: 'https://www.dropbox.com/scl/fi/rju933iq65sdw05ceupks/Peshi.M4A?rlkey=hq78rflv9lel31j3x4aj99eut&st=u1es96a0&dl=1'
+    },
+    {
+        name: 'Pittal',
+        src: 'https://www.dropbox.com/scl/fi/oz2ihct60yvbx51f3wcy5/Pittal.M4A?rlkey=qmx6aq5dq6oeg6huqkfm5fyzh&st=8u83o2th&dl=1'
+    },
+    {
+        name: 'Rao Sahab Drill',
+        src: 'https://www.dropbox.com/scl/fi/sqtvyjm089gsreytbhaao/Rao-Sahab-Drill.M4A?rlkey=vfzjl3mzwcbyrem1wlgl0fmbk&st=c8klz7c3&dl=1'
+    },
+    {
+        name: 'Rao Sahab Rollin',
+        src: 'https://www.dropbox.com/scl/fi/amq4t9r2v9x25bli3qjvv/Rao-Sahab-Rollin.M4A?rlkey=tri0fd0leb2074p47iiia4hin&st=o0upemkj&dl=1'
+    },
+    {
+        name: 'Rola Choudhar Ka',
+        src: 'https://www.dropbox.com/scl/fi/5tw3my77cx6u215zn51t7/Rola-Choudhar-Ka.M4A?rlkey=gt1jtcrtjvcghzpd5n8qo6lih&st=go03216h&dl=1'
+    },
+    {
+        name: 'Romeo',
+        src: 'https://www.dropbox.com/scl/fi/2rhrisxammvqap4qx0fzt/Romeo.M4A?rlkey=ou38ospbzgak92qnnohbuiwgc&st=vhtkert6&dl=1'
+    },
+    {
+        name: 'Russian Bandana',
+        src: 'https://www.dropbox.com/scl/fi/4eu0musgng1dvrnta8nj7/Russian-Bandana.M4A?rlkey=geiiuxp4so9o2vqaouicaj4co&st=mx456aes&dl=1'
+    },
+    {
+        name: 'Same Beef',
+        src: 'https://www.dropbox.com/scl/fi/m7d8nrtitn055ifnutqi0/Same-Beef.M4A?rlkey=o9050jihaq4ly0huzweprd1s3&st=xawyjb5m&dl=1'
+    },
+    {
+        name: 'Sanjay Dutt',
+        src: 'https://www.dropbox.com/scl/fi/6af85fag8o3wdripuhvc4/Sanjay-Dutt.M4A?rlkey=bg6wwrd5ynr1r0c8w6zsnk7h1&st=va672rod&dl=1'
+    },
+    {
+        name: 'Sector 15',
+        src: 'https://www.dropbox.com/scl/fi/nudrxs7m870v4hx39y00y/Sector-15.M4A?rlkey=qyv2hbp99vt6x06rhiumz4n6s&st=9eo0zf04&dl=1'
+    },
+    {
+        name: 'Sher Gelya Yaari',
+        src: 'https://www.dropbox.com/scl/fi/mwn0smzjkkv2t7s1q2jp8/Sher-Gelya-Yaari.M4A?rlkey=au75kz7va3b06v5chgaav1vbs&st=16iqunm9&dl=1'
+    },
+    {
+        name: 'Shikari feat. Sahil Sangwan, Sheetal Sangwan',
+        src: 'https://www.dropbox.com/scl/fi/z4a9m937qp9e8x5j4lqab/Shikari-feat.-Sahil-Sangwan-Sheetal-Sangwan.M4A?rlkey=ag6tw4v0mbcdnu2w3bfm9rxyq&st=xfp7m80j&dl=1'
+    },
+    {
+        name: 'So High',
+        src: 'https://www.dropbox.com/scl/fi/qft9nhepr2cwoxe67p4xc/So-High.M4A?rlkey=15lv56pi61hej8e22vjvucp70&st=ulfasrqg&dl=1'
+    },
+    {
+        name: 'Sopu',
+        src: 'https://www.dropbox.com/scl/fi/g97si9vvmc2xvonywz7em/Sopu.M4A?rlkey=v167tpjxnhx87o3kz2z6kukf4&st=ipy5637j&dl=1'
+    },
+    {
+        name: 'SPAIN Extended Version',
+        src: 'https://www.dropbox.com/scl/fi/0fjot8j142afnrxpwgcer/SPAIN-Extended-Version.M4A?rlkey=iqou8jbx6m26pa5ceswcu07il&st=9rp97e5g&dl=1'
+    },
+    {
+        name: 'System Pe System',
+        src: 'https://www.dropbox.com/scl/fi/ok1v0mwjv7sfp5a9vx01u/System-Pe-System.M4A?rlkey=01q5qciye0j5pqlmjt7endxn7&st=h8hrhkun&dl=1'
+    },
+    {
+        name: 'Tag Awara Ke',
+        src: 'https://www.dropbox.com/scl/fi/kg2f9x6z7ml4dovv3s3gu/Tag-Awara-Ke.M4A?rlkey=fmctz6w9hfg77uevyynpmwczg&st=m6nk9b9j&dl=1'
+    },
+    {
+        name: 'Tashan Haryanvi',
+        src: 'https://www.dropbox.com/scl/fi/9ptr7oq0wlang4teuq11z/Tashan-Haryanvi.M4A?rlkey=bs22cphv13ef4xg2o5apwhjq7&st=rbzj7iqi&dl=1'
+    },
+    {
+        name: 'Teri Aakhya Ka Yo Kajal',
+        src: 'https://www.dropbox.com/scl/fi/cbjkyzlzigfxhrsz48m4y/Teri-Aakhya-Ka-Yo-Kajal.M4A?rlkey=5vvacunzrtpo2ru2mmyvmvxw3&st=s3jisa2e&dl=1'
+    },
+    {
+        name: 'Teri Lat Lag Jagi',
+        src: 'https://www.dropbox.com/scl/fi/xhktm95vmvbzy0kq1no7u/Teri-Lat-Lag-Jagi.M4A?rlkey=2va1zkjr9ogleyu294dsepoca&st=kns7snli&dl=1'
+    },
+    {
+        name: 'Thada Bhartar',
+        src: 'https://www.dropbox.com/scl/fi/hijslxhzvnhhsjd4bx9mo/Thada-Bhartar.M4A?rlkey=9su0e2ihjgn6vr9vps7ye1m9i&st=e6rhzxum&dl=1'
+    },
+    {
+        name: 'Thaddi Baddi',
+        src: 'https://www.dropbox.com/scl/fi/jx56yrdhk39pzg00yi5wn/Thaddi-Baddi.M4A?rlkey=7ooy1ekjwyts881xa4ekt4r7v&st=wn3rkos4&dl=1'
+    },
+    {
+        name: 'Thar',
+        src: 'https://www.dropbox.com/scl/fi/whj98z7h00pemrrg1qgrt/Thar.M4A?rlkey=wjv9mrm1sn9jp8mb46pvloh94&st=kc01tac1&dl=1'
+    },
+    {
+        name: 'Thekedara Ka Byah feat. Shivani Yadav',
+        src: 'https://www.dropbox.com/scl/fi/r6dm78ok250jtha6j0fkv/Thekedara-Ka-Byah-feat.-Shivani-Yadav.M4A?rlkey=jsdmpq8tqdjdqp5axfdbntjjw&st=9xbzqul7&dl=1'
+    },
+    {
+        name: 'These Days feat. Bohemia',
+        src: 'https://www.dropbox.com/scl/fi/ajiirs9xgrkuaadqw4lx8/These-Days-feat.-Bohemia.M4A?rlkey=9p34ff6kl39nbpe9gfa5nprry&st=d6htx8gm&dl=1'
+    },
+    {
+        name: 'Tora',
+        src: 'https://www.dropbox.com/scl/fi/bhralwsdmpesni2383lu1/Tora.M4A?rlkey=ve9prbtzzt3cjakyqq0yveqg3&st=hhau2cx1&dl=1'
+    },
+    {
+        name: 'Tu Badmash Tere Yaar Badmash feat. Lucky Rewri Wala',
+        src: 'https://www.dropbox.com/scl/fi/gkxycee27s1jlmeej0g46/Tu-Badmash-Tere-Yaar-Badmash-feat.-Lucky-Rewri-Wala.M4A?rlkey=9j7dqzpbkqwq4lkzwi6uzv2qc&st=vwil52r8&dl=1'
+    },
+    {
+        name: 'Tu Cheez Lajwab',
+        src: 'https://www.dropbox.com/scl/fi/dw3y45dg27clwa7s5pp26/Tu-Cheez-Lajwab.M4A?rlkey=y2nlz2h2r1vzptrt8cwbpibmw&st=h4elspwk&dl=1'
+    },
+    {
+        name: 'Tuition Badmashi Kaa feat. Hemant Faujdar',
+        src: 'https://www.dropbox.com/scl/fi/vgfkg2llqtvbvilqtb4k9/Tuition-Badmashi-Kaa-feat.-Hemant-Faujdar.M4A?rlkey=ax0lqgkbynkvwgqbe9v0v0i06&st=ekig8vnl&dl=1'
+    },
+    {
+        name: 'Tukda Dil Ka',
+        src: 'https://www.dropbox.com/scl/fi/mlnmc56coj74ldj5rdzdi/Tukda-Dil-Ka.M4A?rlkey=sv3h31mtznikcudf7l7ueix94&st=211j5bm0&dl=1'
+    },
+    {
+        name: 'Up To U',
+        src: 'https://www.dropbox.com/scl/fi/ob6cul60s9xji4t14xerh/Up-To-U.M4A?rlkey=zzye7dyxofw51cxoplh379xpl&st=dmjo7g0l&dl=1'
+    },
+    {
+        name: 'Vakaalat',
+        src: 'https://www.dropbox.com/scl/fi/upnlfjxtufopagl6dfq4h/Vakaalat.M4A?rlkey=ihk34h40khbyhy71o3vbg1dvf&st=g7l764o1&dl=1'
+    },
+    {
+        name: 'Warning',
+        src: 'https://www.dropbox.com/scl/fi/knkub3vfsrn2a8idvte5c/Warning.M4A?rlkey=fw9orrspaiuojesiur6znx878&st=es642o36&dl=1'
+    },
+    {
+        name: 'We Rollin',
+        src: 'https://www.dropbox.com/scl/fi/v9p9ng7oox6bb5gxfs82m/We-Rollin.M4A?rlkey=ip8mf8uq4ilncb8k9pfuo4sug&st=zz7za5pw&dl=1'
+    },
+    {
+        name: 'Yaar Badmash',
+        src: 'https://www.dropbox.com/scl/fi/1hxe0ie1r16mywrrllq5v/Yaar-Badmash.M4A?rlkey=1pxjkvbjvjlz4ub7rf3htwiee&st=ai2imqqh&dl=1'
+    },
+    {
+        name: 'Yaar Bas Yaar',
+        src: 'https://www.dropbox.com/scl/fi/l88hbcf93izt87pignzx4/Yaar-Bas-Yaar.M4A?rlkey=6q4rux19ptbd6rcc3ys77g82n&st=ntv2a653&dl=1'
+    },
+    {
+        name: 'Yaar Haryane Te',
+        src: 'https://www.dropbox.com/scl/fi/zh3ct0geeqmkaztzk6y9u/Yaar-Haryane-Te.M4A?rlkey=o0vygv4lr31js7m3f6rzio0h4&st=5z0ggwqs&dl=1'
+    },
+    {
+        name: 'Yadav Brand 2 feat. Elvish Yadav',
+        src: 'https://www.dropbox.com/scl/fi/u6pc4mh0tia0hyeylglil/Yadav-Brand-2-feat.-Elvish-Yadav.M4A?rlkey=0ah7ti1n1y23qwehv0ty9zkbg&st=das5xdn4&dl=1'
+    },
+    {
+        name: 'Yadav Brand 2 Slowed Reverb',
+        src: 'https://www.dropbox.com/scl/fi/0f2tr12ffvse1t51elu1o/Yadav-Brand-2-Slowed-Reverb.M4A?rlkey=b8epawlh4pma5qfsd00wzi89f&st=csqyh4yu&dl=1'
+    },
+    {
+        name: 'Yadav Brand 4 feat. Aniket Yadav',
+        src: 'https://www.dropbox.com/scl/fi/yjtx43e8x65ogp2ho44v0/Yadav-Brand-4-feat.-Aniket-Yadav.M4A?rlkey=tuz2gkzqajh2028bp2ewyfivn&st=r1f8ns0g&dl=1'
+    },
+    {
+        name: 'Yo Rohtak Se 2 feat. Tijara Vines',
+        src: 'https://www.dropbox.com/scl/fi/4a2yn88zcgk43dc2abodw/Yo-Rohtak-Se-2-feat.-Tijara-Vines.M4A?rlkey=h1dzmbkuwsqiee58rfd4v8v03&st=7q0l2mak&dl=1'
+    },
+    {
+        name: 'Z Black',
+        src: 'https://www.dropbox.com/scl/fi/h0ywpm9vrwlnqu7ai9z6k/Z-Black.M4A?rlkey=grdvj5cpuftkw1m5qrmlt7snl&st=aunxt3m9&dl=1'
+    }
+
+    
+];

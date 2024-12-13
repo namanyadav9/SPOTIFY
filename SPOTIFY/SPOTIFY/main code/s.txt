@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spotify.in</title>
+    <style>
+        body {
+            background-color: #1DB954;
+            color: white;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #121212;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 400px;
+            text-align: center;
+        }
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .playlist {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            height: 200px;
+            overflow-y: auto;
+        }
+        .playlist-item {
+            background-color: #282828;
+            padding: 10px;
+            margin: 5px 0;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            position: relative;
+        }
+        .playlist-item:hover {
+            background-color: #1DB954;
+        }
+        .hidden {
+            background-color: red !important;
+            color: #aaa;
+            filter: blur(3px);
+        }
+        .dots {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+        .dots span {
+            display: block;
+            margin: 3px 0;
+        }
+        .audio-player {
+            width: 100%;
+            margin-top: 20px;
+            border-radius: 10px;
+            border: none;
+        }
+        .buttons {
+            margin-top: 20px;
+        }
+        .button {
+            background-color: #1DB954;
+            border: none;
+            color: white;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+            transition: background-color 0.3s;
+        }
+        .button:hover {
+            background-color: #1aa843;
+        }
+        .active {
+            background-color: #1a7e34;
+        }
+        .song-info {
+            margin-top: 10px;
+            font-size: 18px;
+        }
+        .add-song-form {
+            display: none;
+            margin-top: 20px;
+        }
+        .add-song-form input {
+            margin: 5px;
+            padding: 8px;
+            border-radius: 5px;
+            border: none;
+        }
+        .add-song-form button {
+            padding: 10px 15px;
+            background-color: #1DB954;
+            color: white;
+            border-radius: 5px;
+            border: none;
+        }
+        .add-song-form button:hover {
+            background-color: #1a7e34;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Spotify Playlist</h1>
+
+        <!-- Add Song Button -->
+        <button class="button" onclick="showAddSongForm()">Add New Song</button>
+
+        <!-- Add Song Form -->
+        <div class="add-song-form" id="add-song-form">
+            <input type="text" id="song-name" placeholder="Song Name">
+            <input type="text" id="song-url" placeholder="Song URL">
+            <button onclick="addSong()">Add Song</button>
+        </div>
+
+        <!-- Playlist -->
+        <ul class="playlist" id="playlist">
+            <!-- Playlist items will be dynamically inserted here -->
+        </ul>
+
+        <!-- Audio Player -->
+        <audio class="audio-player" controls>
+            <source id="audio-source" src="" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+
+        <!-- Song Info -->
+        <div class="song-info" id="song-info">Currently Playing: None</div>
+
+        <!-- Control Buttons -->
+        <div class="buttons">
+            <button class="button" id="prev-song">Previous</button>
+            <button class="button" id="next-song">Next</button>
+            <button class="button" id="shuffle-play">Shuffle Play</button>
+            <button class="button" id="order-play">Order Play</button>
+        </div>
+    </div>
+
+    <script>
+        let playlist = JSON.parse(localStorage.getItem('playlist')) || [
+            {
+                name: 'Blue Eyes',
+                src: 'https://www.dropbox.com/scl/fi/5u9236i1a9hls76igt0ag/Blue-Eyes.mp3?rlkey=t3hjab1jiefnk8uttdexdqk2v&st=y52zgwyh&raw=1'
+            },
+            {
+                name: 'Journal',
+                src: 'https://www.dropbox.com/scl/fi/2wsdfksdfj12kl4j3dfks2/journal.mp3?rlkey=abc123&st=xyz&raw=1'
+            },
+            {
+                name: 'Happy Sky',
+                src: 'https://www.dropbox.com/scl/fi/3lkdksdfk2j1dksfkj3r123g/happy-sky.mp3?rlkey=xyz567&st=abc&raw=1'
+            }
+        ];
+
+        let currentSongIndex = 0;
+        let isShuffle = false;
+        const audioElement = document.querySelector('.audio-player');
+        const audioSource = document.getElementById('audio-source');
+        const songInfo = document.getElementById('song-info');
+
+        // Load a song in the player
+        function loadSong(song) {
+            audioSource.src = song.src;
+            audioElement.load();
+            songInfo.textContent = `Currently Playing: ${song.name}`;
+        }
+
+        // Update playlist UI
+        function updatePlaylist() {
+            const playlistContainer = document.getElementById('playlist');
+            playlistContainer.innerHTML = '';
+            playlist.forEach((song, index) => {
+                const listItem = document.createElement('li');
+                listItem.textContent = song.name;
+                listItem.classList.add('playlist-item');
+                listItem.setAttribute('data-index', index);
+
+                // 3 dots (vertical) for actions
+                const dots = document.createElement('span');
+                dots.classList.add('dots');
+                dots.innerHTML = '&#x22EE;'; // Vertical ellipsis character
+                dots.onclick = () => toggleSongOptions(index);
+                listItem.appendChild(dots);
+
+                // Hide song button
+                const hideBtn = document.createElement('button');
+                hideBtn.textContent = 'Hide Song';
+                hideBtn.classList.add('button');
+                hideBtn.onclick = () => hideSong(index);
+
+                // Unhide song button
+                const unhideBtn = document.createElement('button');
+                unhideBtn.textContent = 'Unhide Song';
+                unhideBtn.classList.add('button');
+                unhideBtn.onclick = () => unhideSong(index);
+
+                // Delete song button
+                const deleteBtn = document.createElement('button');
+                deleteBtn.textContent = 'Delete Song';
+                deleteBtn.classList.add('button');
+                deleteBtn.onclick = () => deleteSong(index);
+
+                // Add buttons to item
+                const buttonsContainer = document.createElement('div');
+                buttonsContainer.appendChild(hideBtn);
+                buttonsContainer.appendChild(unhideBtn);
+                buttonsContainer.appendChild(deleteBtn);
+                buttonsContainer.style.display = 'none'; // Initially hide buttons
+
+                listItem.appendChild(buttonsContainer);
+                
+                // Hide or blur the song if it’s marked as hidden
+                if (song.hidden) {
+                    listItem.classList.add('hidden');
+                    buttonsContainer.style.display = 'block'; // Show options for hidden song
+                    unhideBtn.style.display = 'inline'; // Show Unhide button
+                }
+
+                listItem.onclick = () => {
+                    loadSong(song);
+                    audioElement.play();
+                };
+                playlistContainer.appendChild(listItem);
+            });
+        }
+
+        // Show or hide options (Hide/Unhide/Delete) for a song
+        function toggleSongOptions(index) {
+            const songItem = document.querySelector(`li[data-index='${index}']`);
+            const options = songItem.querySelector('div');
+            options.style.display = options.style.display === 'none' ? 'block' : 'none';
+        }
+
+        // Hide song from playlist (marks the song but does not delete it)
+        function hideSong(index) {
+            playlist[index].hidden = true;
+            savePlaylist();
+            updatePlaylist();
+        }
+
+        // Unhide the song and update the playlist
+        function unhideSong(index) {
+            playlist[index].hidden = false;
+            savePlaylist();
+            updatePlaylist();
+        }
+
+        // Delete song completely from the playlist
+        function deleteSong(index) {
+            playlist.splice(index, 1);
+            savePlaylist();
+            updatePlaylist();
+        }
+
+        // Save playlist to localStorage
+        function savePlaylist() {
+            localStorage.setItem('playlist', JSON.stringify(playlist));
+        }
+
+        // Add new song to playlist
+        function addSong() {
+            const songName = document.getElementById('song-name').value;
+            const songURL = document.getElementById('song-url').value;
+            if (songName && songURL) {
+                playlist.push({ name: songName, src: songURL });
+                savePlaylist();
+                updatePlaylist();
+                document.getElementById('add-song-form').reset();
+                document.getElementById('add-song-form').style.display = 'none';
+            }
+        }
+
+        // Show add song form
+        function showAddSongForm() {
+            document.getElementById('add-song-form').style.display = 'block';
+        }
+
+        // Initialize the app
+        updatePlaylist();
+    </script>
+</body>
+</html>
