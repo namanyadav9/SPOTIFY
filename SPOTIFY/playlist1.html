@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spotify.in</title>
+    <style>
+        body {
+            background-color: #1DB954;
+            color: white;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #121212;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 400px;
+            text-align: center;
+        }
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .playlist {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .playlist-item {
+            background-color: #282828;
+            padding: 10px;
+            margin: 5px 0;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .playlist-item:hover {
+            background-color: #1DB954;
+        }
+        .audio-player {
+            width: 100%;
+            margin-top: 20px;
+            border-radius: 10px;
+            border: none;
+        }
+        .buttons {
+            margin-top: 20px;
+        }
+        .button {
+            background-color: #1DB954;
+            border: none;
+            color: white;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+            transition: background-color 0.3s;
+        }
+        .button:hover {
+            background-color: #1aa843;
+        }
+        .active {
+            background-color: #1a7e34;
+        }
+        .song-info {
+            margin-top: 10px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Spotify Playlist</h1>
+
+        <!-- Playlist -->
+        <ul class="playlist">
+            <li class="playlist-item" data-src="https://www.dropbox.com/scl/fi/5u9236i1a9hls76igt0ag/Blue-Eyes.mp3?rlkey=t3hjab1jiefnk8uttdexdqk2v&st=y52zgwyh&raw=1">Blue Eyes</li>
+            <li class="playlist-item" data-src="https://www.dropbox.com/scl/fi/2wsdfksdfj12kl4j3dfks2/journal.mp3?rlkey=abc123&st=xyz&raw=1">Journal</li>
+            <li class="playlist-item" data-src="https://www.dropbox.com/scl/fi/3lkdksdfk2j1dksfkj3r123g/happy-sky.mp3?rlkey=xyz567&st=abc&raw=1">Happy Sky</li>
+            <!-- Add more songs here -->
+        </ul>
+
+        <!-- Audio Player -->
+        <audio class="audio-player" controls>
+            <source id="audio-source" src="" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+
+        <!-- Song Info -->
+        <div class="song-info" id="song-info">Currently Playing: None</div>
+
+        <!-- Control Buttons -->
+        <div class="buttons">
+            <button class="button" id="prev-song">Previous</button>
+            <button class="button" id="next-song">Next</button>
+            <button class="button" id="shuffle-play">Shuffle Play</button>
+            <button class="button" id="order-play">Order Play</button>
+        </div>
+    </div>
+
+    <script>
+        let playlist = [
+            {
+                name: 'Blue Eyes',
+                src: 'https://www.dropbox.com/scl/fi/5u9236i1a9hls76igt0ag/Blue-Eyes.mp3?rlkey=t3hjab1jiefnk8uttdexdqk2v&st=y52zgwyh&raw=1'
+            },
+            {
+                name: 'Journal',
+                src: 'https://www.dropbox.com/scl/fi/2wsdfksdfj12kl4j3dfks2/journal.mp3?rlkey=abc123&st=xyz&raw=1'
+            },
+            {
+                name: 'Happy Sky',
+                src: 'https://www.dropbox.com/scl/fi/3lkdksdfk2j1dksfkj3r123g/happy-sky.mp3?rlkey=xyz567&st=abc&raw=1'
+            }
+            // Add more songs here
+        ];
+
+        let currentPlaylist = [];
+        let currentSongIndex = 0;
+        let isShuffle = false;
+        const audioElement = document.querySelector('.audio-player');
+        const audioSource = document.getElementById('audio-source');
+        const songInfo = document.getElementById('song-info');
+
+        // Load a song in the player
+        function loadSong(song) {
+            audioSource.src = song.src;
+            audioElement.load();
+            songInfo.textContent = `Currently Playing: ${song.name}`;
+        }
+
+        // Update playlist UI
+        function updatePlaylist() {
+            const playlistContainer = document.querySelector('.playlist');
+            playlistContainer.innerHTML = '';
+            playlist.forEach((song, index) => {
+                const listItem = document.createElement('li');
+                listItem.textContent = song.name;
+                listItem.classList.add('playlist-item');
+                listItem.setAttribute('data-src', song.src);
+                listItem.onclick = () => {
+                    loadSong(song);
+                    audioElement.play();
+                    resetButtons(); // Reset play mode button colors
+                };
+                playlistContainer.appendChild(listItem);
+            });
+        }
+
+        // Shuffle playlist and play
+        function shufflePlay() {
+            isShuffle = true;
+            document.getElementById('shuffle-play').classList.add('active');
+            document.getElementById('order-play').classList.remove('active');
+            currentPlaylist = [...playlist];
+            currentPlaylist.sort(() => Math.random() - 0.5); // Shuffle
+            currentSongIndex = 0;
+            loadSong(currentPlaylist[currentSongIndex]);
+            audioElement.play();
+            audioElement.onended = nextSong;
+        }
+
+        // Play the next song
+        function nextSong() {
+            if (isShuffle) {
+                if (currentSongIndex < currentPlaylist.length - 1) {
+                    currentSongIndex++;
+                } else {
+                    currentSongIndex = 0; // Loop back to the first song
+                }
+            } else {
+                if (currentSongIndex < playlist.length - 1) {
+                    currentSongIndex++;
+                } else {
+                    currentSongIndex = 0; // Loop back to the first song
+                }
+            }
+            loadSong(currentPlaylist[currentSongIndex] || playlist[currentSongIndex]);
+            audioElement.play();
+        }
+
+        // Play the previous song
+        function prevSong() {
+            if (isShuffle) {
+                if (currentSongIndex > 0) {
+                    currentSongIndex--;
+                } else {
+                    currentSongIndex = currentPlaylist.length - 1; // Go to the last song
+                }
+            } else {
+                if (currentSongIndex > 0) {
+                    currentSongIndex--;
+                } else {
+                    currentSongIndex = playlist.length - 1; // Go to the last song
+                }
+            }
+            loadSong(currentPlaylist[currentSongIndex] || playlist[currentSongIndex]);
+            audioElement.play();
+        }
+
+        // Order play (play in order of the playlist)
+        function orderPlay() {
+            isShuffle = false;
+            document.getElementById('order-play').classList.add('active');
+            document.getElementById('shuffle-play').classList.remove('active');
+            currentPlaylist = [...playlist];
+            currentSongIndex = 0;
+            loadSong(currentPlaylist[currentSongIndex]);
+            audioElement.play();
+            audioElement.onended = nextSong;
+        }
+
+        // Reset button colors when a song is clicked or playing
+        function resetButtons() {
+            document.getElementById('shuffle-play').classList.remove('active');
+            document.getElementById('order-play').classList.remove('active');
+        }
+
+        // Initialize playlist and controls
+        document.addEventListener('DOMContentLoaded', () => {
+            updatePlaylist();
+            
+            // Shuffle play button click
+            document.getElementById('shuffle-play').addEventListener('click', shufflePlay);
+            
+            // Order play button click
+            document.getElementById('order-play').addEventListener('click', orderPlay);
+
+            // Next song button click
+            document.getElementById('next-song').addEventListener('click', nextSong);
+
+            // Previous song button click
+            document.getElementById('prev-song').addEventListener('click', prevSong);
+        });
+    </script>
+</body>
+</html>
