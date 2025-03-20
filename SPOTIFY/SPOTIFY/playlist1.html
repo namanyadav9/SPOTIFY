@@ -113,12 +113,10 @@
         <button class="button" onclick="showAddSongForm()">Add New Song</button>
 
         <!-- Add Song Form -->
-        <div class="add-song-form" id="add-song-form">
-            <input type="text" id="song-name" placeholder="Song Name">
-            <input type="text" id="song-url" placeholder="Song URL">
-            <button onclick="addSong()">Add Song</button>
-        </div>
-
+        <!-- Search Bar -->
+<div class="search-bar">
+    <input type="text" id="search-song" placeholder="Search Songs by Name" onkeyup="searchSongs()">
+</div>
         <!-- Playlist -->
         <ul class="playlist" id="playlist">
             <!-- Playlist items will be dynamically inserted here -->
