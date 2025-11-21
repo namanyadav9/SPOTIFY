@@ -2,12 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <!-- Locked viewport for mobile, no zoom -->
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
     <title>Music Player</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
-        /* --- CSS VARIABLES --- */
         :root {
             --bg-black: #000000;
             --bg-surface: #121212;
@@ -25,41 +23,34 @@
             user-select: none;
         }
 
-        /* Lock page to viewport, no page scroll */
         html, body {
-            margin: 0;
-            padding: 0;
             width: 100%;
             height: 100%;
+            margin: 0;
+            padding: 0;
             overflow: hidden;
             background-color: var(--bg-black);
-        }
-
-        body {
             color: var(--text-white);
-            display: flex;
-            justify-content: center;   /* center horizontally */
-            align-items: stretch;      /* fill height */
         }
 
         .container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 100vw;
+            height: 100dvh;
             background-color: var(--bg-surface);
-            width: 100%;
-            max-width: 450px;
-            height: 100vh;                 /* full screen height */
             display: flex;
             flex-direction: column;
-            position: relative;
             box-shadow: 0 0 20px rgba(0,0,0,0.5);
-            overflow: hidden;              /* container itself won't scroll */
+            overflow: hidden;
         }
 
-        /* --- SEARCH BAR --- */
         .search-container {
-            padding: 15px 15px 5px 15px;
-            background-color: var(--bg-surface);
-            z-index: 2;
-            flex-shrink: 0; /* fixed height, does not collapse */
+            padding: 12px 12px 4px 12px;
+            flex-shrink: 0;
         }
 
         .search-input {
@@ -69,7 +60,7 @@
             border: none;
             background-color: #2a2a2a;
             color: white;
-            font-size: 14px;
+            font-size: 15px;
             outline: none;
             transition: background 0.3s;
         }
@@ -78,17 +69,16 @@
             background-color: #333;
         }
 
-        /* --- PLAYLIST --- */
         .playlist {
             list-style: none;
-            padding: 0;
             margin: 0;
-            flex: 1 1 auto;       /* takes all free space between search and player */
-            overflow-y: auto;     /* ONLY this area scrolls */
-            padding-bottom: 10px;
+            padding: 0 0 10px 0;
+            flex: 1 1 auto;
+            overflow-y: auto;
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
         }
 
-        /* Custom Scrollbar */
         .playlist::-webkit-scrollbar { width: 4px; }
         .playlist::-webkit-scrollbar-thumb { background-color: #444; border-radius: 4px; }
 
@@ -111,7 +101,7 @@
         }
 
         .song-name {
-            font-size: 14px;
+            font-size: 15px;
             color: var(--text-white);
             white-space: nowrap;
             overflow: hidden;
@@ -119,13 +109,11 @@
             max-width: 85%;
         }
 
-        /* Active song text turns green */
         .playing-active .song-name {
             color: var(--spotify-green);
             font-weight: 600;
         }
 
-        /* --- EQUALIZER ANIMATION (IN LIST) --- */
         .equalizer {
             display: none;
             align-items: flex-end;
@@ -147,7 +135,6 @@
         .bar:nth-child(3) { height: 8px; animation-delay: 0.4s; }
         @keyframes bounce { 0% { height: 3px; } 100% { height: 16px; } }
 
-        /* --- BOTTOM PLAYER AREA --- */
         .player-area {
             background-color: #181818;
             padding: 15px 20px 25px 20px;
@@ -156,13 +143,14 @@
             flex-direction: column;
             gap: 10px;
             box-shadow: 0 -5px 15px rgba(0,0,0,0.3);
-            flex-shrink: 0;   /* stays fixed at bottom, no scrolling */
+            flex-shrink: 0;
         }
 
         .current-info {
             text-align: center;
             margin-bottom: 5px;
         }
+
         .current-title {
             font-size: 14px;
             font-weight: 600;
@@ -171,7 +159,6 @@
             text-overflow: ellipsis;
         }
 
-        /* --- CUSTOM PROGRESS BAR (Green Line) --- */
         .progress-container {
             display: flex;
             flex-direction: column;
@@ -191,7 +178,6 @@
             background-repeat: no-repeat;
         }
 
-        /* Thumb (The Dot) - Hidden until hover */
         .progress-bar::-webkit-slider-thumb {
             -webkit-appearance: none;
             height: 12px;
@@ -215,7 +201,6 @@
             color: var(--text-gray);
         }
 
-        /* --- CONTROLS (Play/Pause/Shuffle) --- */
         .controls {
             display: flex;
             justify-content: space-between;
@@ -246,7 +231,6 @@
             fill: currentColor;
         }
 
-        /* Play Button is larger and white */
         .btn-play {
             width: 50px;
             height: 50px;
@@ -257,7 +241,7 @@
             align-items: center;
             justify-content: center;
         }
-        
+
         .btn-play:hover {
             transform: scale(1.05);
             background: var(--spotify-green);
@@ -267,8 +251,7 @@
             color: var(--spotify-green);
             position: relative;
         }
-        
-        /* Dot under active shuffle/order button */
+
         .btn.active-mode::after {
             content: '•';
             position: absolute;
@@ -276,21 +259,17 @@
             font-size: 20px;
             color: var(--spotify-green);
         }
-
     </style>
 </head>
 <body>
-
     <div class="container">
         <div class="search-container">
             <input type="text" id="searchInput" class="search-input" placeholder="Search songs..." onkeyup="searchSongs()">
         </div>
 
-        <ul class="playlist" id="playlist">
-        </ul>
+        <ul class="playlist" id="playlist"></ul>
 
         <div class="player-area">
-            
             <div class="current-info">
                 <div class="current-title" id="currentTitle">Select a song</div>
             </div>
@@ -329,7 +308,6 @@
     </div>
 
     <script>
-        // --- DATA ---
         const rawPlaylist = [
             { name: '420 feat. Dev Chouhan & Fiza Choudhary', src: 'https://www.dropbox.com/scl/fi/drj16n2pptq0wxnv75nzo/420-feat.-Dev-Chouhan-fiza-Choudhary.M4A?rlkey=q302pwaa3efckrzbkc1d1me9p&st=hdqylu2a&dl=1' },
             { name: 'Aangli Hawa Me', src: 'https://www.dropbox.com/scl/fi/d9b94zp44ou68qzcu1nqo/Aangli-Hawa-Me.M4A?rlkey=fpvmbqhvjyl8r2jtke320sl0x&st=c0qbnwzc&dl=1' },
@@ -467,14 +445,13 @@
             { name: 'sapne mein rat n aayi', src: 'https://www.dropbox.com/scl/fi/gqej9jmht91tisevmfgit/Sapne-M-Rat-N-Ayi-Remix-HARYANVI-HIP-HOP-Dead-vibe.mp3?rlkey=mt6op1730gknbbngl13rkjbl2&st=m4y7s5wl&dl=1' }
         ];
 
-        let playlist = [...rawPlaylist]; // Clone for manipulation if needed
+        let playlist = [...rawPlaylist];
         let currentSongIndex = 0;
         let isShuffle = false;
         let playedHistory = [];
-        
+
         const audio = new Audio();
-        
-        // Elements
+
         const titleEl = document.getElementById('currentTitle');
         const progressBar = document.getElementById('progressBar');
         const currentTimeEl = document.getElementById('currentTime');
@@ -484,19 +461,14 @@
         const playPauseBtn = document.getElementById('playPauseBtn');
         const playlistContainer = document.getElementById('playlist');
 
-        // --- INITIALIZE ---
         function init() {
             renderPlaylist();
         }
 
-        // --- RENDER ---
         function renderPlaylist(songs = playlist) {
             playlistContainer.innerHTML = '';
-            songs.forEach((song, index) => {
-                // Identify if this specific item is currently active
-                // Use src comparison because filtering might change the index
+            songs.forEach(song => {
                 const isActive = (playlist[currentSongIndex].src === song.src) && (audio.src !== '');
-                
                 const li = document.createElement('li');
                 li.classList.add('playlist-item');
                 if (isActive) li.classList.add('playing-active');
@@ -509,14 +481,11 @@
                         <div class="bar"></div>
                     </div>
                 `;
-                
+
                 li.onclick = () => {
-                    // Map the click back to the main playlist index
                     const mainIndex = playlist.findIndex(s => s.src === song.src);
                     currentSongIndex = mainIndex;
-                    // History for shuffle
-                    if(isShuffle && !playedHistory.includes(mainIndex)) playedHistory.push(mainIndex);
-                    
+                    if (isShuffle && !playedHistory.includes(mainIndex)) playedHistory.push(mainIndex);
                     loadSong(currentSongIndex);
                     playSong();
                 };
@@ -524,19 +493,15 @@
             });
         }
 
-        // --- AUDIO LOGIC ---
         function loadSong(index) {
             const song = playlist[index];
             audio.src = song.src;
             titleEl.innerText = song.name;
-            
-            // Reset Progress
             progressBar.value = 0;
             progressBar.style.backgroundSize = '0% 100%';
             currentTimeEl.innerText = "0:00";
             totalDurationEl.innerText = "...";
-            
-            renderPlaylist(getVisibleSongs()); // Re-render to update active class
+            renderPlaylist(getVisibleSongs());
         }
 
         function playSong() {
@@ -554,7 +519,7 @@
 
         function togglePlay() {
             if (audio.paused) {
-                if(!audio.src) loadSong(currentSongIndex); // First load
+                if (!audio.src) loadSong(currentSongIndex);
                 playSong();
             } else {
                 pauseSong();
@@ -565,7 +530,6 @@
             if (isShuffle) {
                 if (playedHistory.length >= playlist.length) playedHistory = [];
                 let randomIndex;
-                // Avoid infinite loop if only 1 song
                 if (playlist.length <= 1) randomIndex = 0;
                 else {
                     do {
@@ -587,20 +551,17 @@
             playSong();
         }
 
-        // --- SEARCH ---
         function searchSongs() {
             const query = document.getElementById('searchInput').value.toLowerCase();
             const filtered = playlist.filter(s => s.name.toLowerCase().includes(query));
             renderPlaylist(filtered);
         }
-        
-        // Helper to get currently visible songs (for re-rendering correct list state)
+
         function getVisibleSongs() {
             const query = document.getElementById('searchInput').value.toLowerCase();
             return playlist.filter(s => s.name.toLowerCase().includes(query));
         }
 
-        // --- PROGRESS BAR LOGIC ---
         function formatTime(s) {
             if (isNaN(s)) return "0:00";
             const m = Math.floor(s / 60);
@@ -609,7 +570,8 @@
         }
 
         function updateProgress() {
-            const { duration, currentTime } = audio;
+            const duration = audio.duration;
+            const currentTime = audio.currentTime;
             if (isNaN(duration)) return;
             const percent = (currentTime / duration) * 100;
             progressBar.value = percent;
@@ -618,46 +580,40 @@
             totalDurationEl.innerText = formatTime(duration);
         }
 
-        // --- EVENT LISTENERS ---
         playPauseBtn.onclick = togglePlay;
         document.getElementById('nextBtn').onclick = nextSong;
         document.getElementById('prevBtn').onclick = prevSong;
 
-        // Shuffle Toggle
         document.getElementById('shuffleBtn').onclick = function() {
             isShuffle = true;
             this.classList.add('active-mode');
             document.getElementById('orderBtn').classList.remove('active-mode');
-            playedHistory = [currentSongIndex]; // Reset history
+            playedHistory = [currentSongIndex];
         };
 
-        // Order Toggle
         document.getElementById('orderBtn').onclick = function() {
             isShuffle = false;
             this.classList.add('active-mode');
             document.getElementById('shuffleBtn').classList.remove('active-mode');
         };
 
-        // Audio Events
         audio.onended = nextSong;
         audio.ontimeupdate = updateProgress;
         audio.onloadedmetadata = () => {
             totalDurationEl.innerText = formatTime(audio.duration);
         };
 
-        // Click/Drag Progress Bar
         progressBar.oninput = function() {
             const val = this.value;
             this.style.backgroundSize = `${val}% 100%`;
             currentTimeEl.innerText = formatTime((val / 100) * audio.duration);
         };
-        
+
         progressBar.onchange = function() {
             audio.currentTime = (this.value / 100) * audio.duration;
         };
 
         init();
-
     </script>
 </body>
 </html>
